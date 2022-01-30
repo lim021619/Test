@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ModelsTest.Models.Book>
+
+@{
+    ViewBag.Title = "Books";
+    int numberdiv = 1;
+}
+
+
+<div class="row m-0 p-0 justify-content-center">
+    <div class="col-3">
+        @foreach (var item in Model)
+        {
+            <div class="card m-2 border border-success rounded" id="b_item_@numberdiv">
+                <div class="row card-body">
+                    <h3><span>@item.Id.ToString()</span> @item.Name</h3>
+                    <h4>@item.Author</h4>
+                    <h4>@item.Date.ToString()</h4>
+                </div>
+                <div class="card-footer">
+                    <span id="b_item_@numberdiv" class="btn btn-success btn-sm">Купить</span>
+                </div>
+
+            </div>
+
+            numberdiv++;
+        }
+    </div>
+    <div class="col">
+        <form action="/Home/Index" method="post">
+            <label class="row mb-2"> Сортировать по</label>
+            <select name="namesorting">
+                Sort
+                <option value="byName">По Навзанию</option>
+                <option value="byAuthor">По Автору</option>
+                <option value="byDate">По Дате</option>
+                <option value="byId">По номеру</option>
+            </select>
+            <input type="submit" name="name" value="Начать" class="btn btn-sm btn-outline-info p-1" style="width:100px;" />
+        </form>
+
+
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+
+    var listBuy = $('.btn');
+
+    $(document).ready(
+        function () { initbtn(); });
+
+    function initbtn() {
+        for (var i = 0; i < listBuy.length - 1; i++) {
+            listBuy[i].addEventListener('click', function () { eventbtn(this) });
+        }
+    }
+
+    function eventbtn(btn) {
+
+        let g = $('#' + btn.id);
+        g.hide(500);
+
+    }
+
+</script>
